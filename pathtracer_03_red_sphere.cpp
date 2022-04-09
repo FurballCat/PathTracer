@@ -89,14 +89,14 @@ Vec3 render(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
 {
 	// camera
 	Vec3 camera_pos = {0.0f, 0.0f, -8.0f};
-	float camera_near = 0.1f;	// distance from camera position to the near plane of the camera
+	float camera_near = 2.0f;	// distance from camera position to the near plane of the camera
 	
 	// pixel position is on the camera near plane
 	float aspect_ratio = width / (float)height;
 	Vec3 pixel_pos = {
 		aspect_ratio * (float)x / (float)width - (aspect_ratio - 1.0f) * 0.5f - 0.5f,
 		(float)y / (float)height - 0.5f,
-		camera_pos.y + camera_near
+		camera_pos.z + camera_near
 	};
 	
 	// ray starting at pixel position
@@ -104,7 +104,7 @@ Vec3 render(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
 	ray.pos = pixel_pos;
 	ray.dir = norm(sub(pixel_pos, camera_pos));
 	
-	Sphere sphere = {{0.0f, 0.0f, 0.0f}, 0.2f};	// sphere at position 0,0,0 with radius 0.2
+	Sphere sphere = {{0.0f, 0.0f, 0.0f}, 0.5f};	// sphere at position 0,0,0 with radius 0.5
 	
 	// if ray hits the sphere, return red
 	if(intersect(ray, sphere))

@@ -19,7 +19,7 @@ int main(int argc, const char * argv[])
 	memset(image, 0, image_size);
 	
 	// save image to 'render.png'
-	int32_t res = stbi_write_png("render.png", width, height, 3, image, stride);
+	int32_t res = stbi_write_png("render.png", width, height, 3, image, width * stride);
 	
 	if(res)
 		printf("Saved to render.png\n");

@@ -196,6 +196,8 @@ bool intersect(Ray ray, Plane plane, Hit& hit)
 struct Scene
 {
 	Sphere s1;
+	Sphere s2;
+	Sphere s3;
 	Plane p1;
 };
 
@@ -206,6 +208,26 @@ bool intersect(Ray ray, Scene& scene, Hit& hit)
 	bool is_hit = 0.0f;
 	
 	if(intersect(ray, scene.s1, temp_hit))
+	{
+		if(temp_hit.distance < distance)
+		{
+			hit = temp_hit;
+			distance = temp_hit.distance;
+			is_hit = true;
+		}
+	}
+	
+	if(intersect(ray, scene.s2, temp_hit))
+	{
+		if(temp_hit.distance < distance)
+		{
+			hit = temp_hit;
+			distance = temp_hit.distance;
+			is_hit = true;
+		}
+	}
+	
+	if(intersect(ray, scene.s3, temp_hit))
 	{
 		if(temp_hit.distance < distance)
 		{
@@ -314,7 +336,9 @@ int main(int argc, const char * argv[])
 	
 	// scene
 	Scene scene = {};
-	scene.s1 = {{0.0f, 0.0f, 0.0f}, 1.0f, {0.8f, 0.3f, 0.2f}, 0.2f};	// sphere at position 0,0,0 with radius 1.0 with gray color
+	scene.s1 = {{-2.0f, 0.0f, 0.0f}, 1.0f, {0.8f, 0.3f, 0.2f}, 0.04f};
+	scene.s2 = {{0.0f, 0.0f, 0.0f}, 1.0f, {0.3f, 0.8f, 0.2f}, 0.3f};
+	scene.s3 = {{2.0f, 0.0f, 0.0f}, 1.0f, {0.2f, 0.3f, 0.8f}, 0.9f};
 	scene.p1 = {{0.0f, 1.0f, 0.0f}, -1.0f, {0.8f, 0.8f, 0.8f}, 0.9f};
 	
 	// render pixels
